@@ -1,3 +1,8 @@
-= Impressionist
+== Impressionist 2.0.0rc1
+
+= Warning
+
+== This branch should not be used in production as it is currently in development.
+== If you need to use impressionist on rails 4, checkout rails4 branch or if you are in rails 3.x just use it as a gem.
 
 This project rocks and uses MIT-LICENSE.
