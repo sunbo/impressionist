@@ -11,13 +11,13 @@ describe Impressionist do
       assert_respond_to imp, :setup
     end
 
-    it "must returns self(imp)" do
+    it "must return Impressionist" do
       imp.setup { |c|
         assert_equal c, imp
       }
     end
 
-    it "must respond to #orm puts 2" do
+    it "must respond to #orm" do
       assert_respond_to imp, :orm
     end
 
@@ -25,7 +25,7 @@ describe Impressionist do
       assert_equal imp.orm, :active_record
     end
 
-    it "must change default of orm" do
+    it "must change default orm" do
       # sets Imp.orm to active_record in order to
       # prevent broken tests as they're run randomly
       imp.orm = :mongoid

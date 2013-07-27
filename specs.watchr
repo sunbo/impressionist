@@ -20,7 +20,7 @@ Signal.trap('INT' ) { abort("\n") } # Ctrl-C
 # Helpers
 # --------------------------------------------------
 def ruby(*paths)
-  run "ruby #{gem_opt} -I.:lib:tests/spec -e'%w( #{paths.flatten.join(' ')} ).each {|p| require p }'"
+  run "ruby #{gem_opt} -I.:lib:.:tests/spec -e'%w( #{paths.flatten.join(' ')} ).each {|p| require p }'"
 end
 
 def tests
