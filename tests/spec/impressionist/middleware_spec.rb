@@ -35,6 +35,13 @@ module Impressionist
 
     end
 
+    describe Middleware, 'with PageResponse' do
+
+      it "" do
+      end
+
+    end
+
     # see http://blog.kesor.net/2012/06/05/rack-middleware/
     describe Middleware, 'in use' do
       include Rack::Test::Methods
