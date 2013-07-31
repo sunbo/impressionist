@@ -106,4 +106,5 @@ module Impressionist
     end
 
   end
+
 end

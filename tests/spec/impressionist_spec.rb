@@ -1,6 +1,10 @@
 require 'minitest_helper'
 require 'impressionist.rb'
 
+# TODO:
+# Prevent colision of names when creating a
+# minion ( duplicating it )
+# by raising an exception.
 describe Impressionist do
 
   # shortcut
@@ -48,26 +52,32 @@ describe Impressionist do
     it "must return self klass" do
       imp.minions {
         must_equal Impressionist
-     } 
+     }
     end
 
     it { imp.must_respond_to :create }
 
     it "must receive name and options" do
-      skip
-      imp.create(:name, :actions, options: true).must_equal :created
+      assert imp.create(:name, :actions, options: true)
     end
 
-    it "must create a minion" do
-      fake_food = Minitest::Mock.new
-      fake_food.expect(:new, :created, [Symbol, Array])
-
-      puts Impressionist.constants
-      fake_minion_creator = MinionCreator.stub(:new, fake_food) do
-        imp.create(:name, :actions, options: true)
-        fake_food.verify
-      end
+    it "must pass two actions" do
+      imp.create(:papoy, :index, :show, counter_cache: :true)
+      Impressionist::Minions.must_respond_to :papoy
     end
+
+    it "must pass a lot of options" do
+      imp.create(
+        :papoy,
+        :index, :show, :test, :another_action, :banana,
+        counter_cache:  :true,
+        column_name:    :my_name,
+        unique:         true
+      )
+
+      Impressionist::Minions.must_respond_to :papoy
+    end
+
 
   end
 
