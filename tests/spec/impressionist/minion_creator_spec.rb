@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'impressionist/minions'
+require 'impressionist/minion_creator'
 
 module Impressionist
   describe MinionCreator do

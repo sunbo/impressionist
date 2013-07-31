@@ -1,4 +1,4 @@
-require 'impressionist/minions'
+require 'impressionist/minion_creator'
 
 module Impressionist
     ##
@@ -26,7 +26,7 @@ module Impressionist
      #  }
     #
     # And ResponseMonster asks pool for #posts method
-    # Then Pool finds this method and returns a hash of data 
+    # Then Pool finds this method and returns a hash of data
     # which was defined in:
     #
     #   config/initializers/impressionist.rb
@@ -58,4 +58,4 @@ module Impressionist
     end
 
   end
-end	
+end

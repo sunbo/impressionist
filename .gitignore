@@ -7,4 +7,5 @@
 /test_app/doc
 /test_app/test
 /test_app/vendor
+*.swp
 Gemfile.lock

@@ -65,7 +65,7 @@ module Impressionist
     def self.new(name, food)
       instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
         def #{name}
-         #{food} 
+         #{food}
         end
       EOS
     end
