@@ -1,25 +1,27 @@
 ##
 # Minions are small, yellow, cylinder-shaped,
 # creatures that have one or two eyes and they love
-# Bananaaaa! Potato-naaaa!
+# Bananaaaa, Potato-naaaa!
 #
 # A minion is very smart,
 # You create one by giving him a name and
-# something to eat. ( banaaaa )
+# something to eat. ( banaaaa || potato )
+#
 # Impressionist.minion(:tom, [:actions], [:options])
 #
-# List of minions created
 # Impressionist.minions do |create|
 #
 #   SAAB = Same as above but
 #
+#   Given you have the first parameters as controllers name
+#
 #   # Logs an impression for any action, but doesn't update_counters
 #   create(:papoy)
 #
-#   # SAAB for those two actions
-#   create(:papoy, [:a_toy, :show])
+#   # SAAB for those three actions
+#   create(:papoy, :a_toy, :show, :index)
 #
-#   # SAAB filters unique impressions
+#   # SAAB filters unique impressions, impression for action show
 #   create(:papoy, :show, unique: :ip_address)
 #
 #   # SAAB but ...
@@ -27,33 +29,45 @@
 #
 #   # Oh yeah SAAB updates counters now
 #   # Minion tries to use its controller name as its Model name.
+#   # However if you want to set a entity to update_counters
+#   # You can do so by passing cache_in options
+#
+#   Given you have a Model named Papoy
+#   And this model has a column_name impressions_total
+#   And you can change this column_name by column_name: :my_own
+#   When action show is requested
+#   Then an impression will be saved
+#
 #   create(:papoy, :show, counter_cache => true)
 #
 #   # SAAB changes column name of Papoy to impressions
-#   # default is impressions_count
-#   create(:papoy, :show, counter_cache => {:column_name: :impressions})
+#   # default is impressions_total
+#   create(:papoy, :show, counter_cache: true, column_name: :impressions)
 #
 #   # SAAB specifies a different entity 'class_name'
-#   # One would pass a class name if Controller talks to
-#     a different Model (i.e Not the same name as the controller)
-#   create(:papoy, :show,
-#     counter_cache => {
-#       column_name: :impressions,
-#       class_name: 'Poypa'
-#     })
+#   Given you have a controller that talks to a different Model
+#   When you explicitly declare the model
+#   Then an association should be set using that model
 #
-# Becomes:
-# define_method :papoy do
-#   Hash of actions and options
-#   {
-#     actions: [:show],
-#     options: {
-#       column_name: :impressions,
-#       class_name: :Poypa
-#      }
-#   }
+#   create(:papoy, :show,
+#     counter_cache: true,
+#     column_name: :impressions,
+#     class_name: 'Poypa')
+#
 # end
 # end
+
+##
+# Note: Impressionist makes associations on the fly
+# By default it makes
+# MyModel has_many :impressions, as: :impressionable ...
+#
+# If you're counter caching
+# and you're using a separate entity to do so
+# It will
+# MyModel has_one :impressions_total, as: :impressions_cacheable ...
+#
+# See https://github.com/charlotte-ruby/impressionist/pull/100#issuecomment-22050432
 
 module Impressionist
 
@@ -62,12 +76,9 @@ module Impressionist
   # when MinionCreator tells it to.
   module Minions
 
+    # :nodoc: Ruby 1.8.7 does not support define_singleton_method
     def self.new(name, food)
-      instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
-        def #{name}
-         #{food}
-        end
-      EOS
+        define_singleton_method(name) { food }
     end
 
   end
@@ -84,14 +95,9 @@ module Impressionist
       minion_create
     end
 
-    def banana_potato_aaa
-      @banana_potato_aaa
-    end
-
-    # :nodoc:
     private
 
-    attr_reader :name, :actions
+    attr_reader :name, :actions, :banana_potato_aaa
 
     def minion_create
       minions.new(name, digest_food)
