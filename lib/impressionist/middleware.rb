@@ -3,8 +3,9 @@
 # Given a valid request
 # When a response is sent back
 # Then impressionist saves an impression
-# through ActiveSupport::Notifications
+# by subscribing to 'action_process.action_controller
 #
+
 module Impressionist
   class Middleware
     def initialize(app)
