@@ -99,6 +99,8 @@ module Impressionist
 
     attr_reader :name, :actions, :banana_potato_aaa
 
+    # Minion create an set up an
+    # association based on ORM of choice
     def minion_create
       minions.new(name, digest_food)
     end
@@ -108,7 +110,7 @@ module Impressionist
     end
 
     def digest_food
-      {:actions => actions, :options => banana_potato_aaa}
+      {actions: actions, options: banana_potato_aaa}
     end
 
   end

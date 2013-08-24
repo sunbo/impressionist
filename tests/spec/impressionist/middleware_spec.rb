@@ -10,8 +10,8 @@ module Impressionist
       it { mw.must_be_instance_of Middleware }
 
       it "must set @app variable" do
-        at_app = mw.instance_variable_get(:@app)
-        at_app.must_equal "app"
+        app = mw.instance_variable_get(:@app)
+        app.must_equal "app"
       end
 
     end
@@ -21,10 +21,10 @@ module Impressionist
       it { mw.must_respond_to :call }
 
       it "must call #call on app" do
-        request  = Minitest::Mock.new
+        request   = Minitest::Mock.new
         request.expect(:call, true, [String])
 
-        mw    = Middleware.new(request)
+        mw        = Middleware.new(request)
 
         mw.call("env").must_equal true
         request.verify
