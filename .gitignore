@@ -8,4 +8,5 @@
 /test_app/test
 /test_app/vendor
 *.swp
+*.swo
 Gemfile.lock
