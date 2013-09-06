@@ -20,6 +20,6 @@ class Impression
   field :message
   field :referrer
 
-  after_save :impressionable_counter_cache_updatable?
+  #after_save :impressionable_counter_cache_updatable?
 
 end
