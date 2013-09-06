@@ -15,10 +15,7 @@ module Impressionist
         :start_date=>nil,
         :end_date=>Time.now)
 
-      imps = options[:start_date].blank?
-        ? impressions :
-        impressions.
-          between(created_at: options[:start_date]..options[:end_date])
+      imps = options[:start_date].blank? ? impressions : impressions.between(created_at: options[:start_date]..options[:end_date])
 
       filter = options[:filter]
 
